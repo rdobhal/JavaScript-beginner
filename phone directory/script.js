@@ -26,11 +26,21 @@ btnSubmit.addEventListener("click", function () {
     error.style.color = "red";
   }
 });
+btnSubmit.addEventListener("click", function () {
+  for (let i = 1; i < rows.length; i++) {
+    if (i % 2 != 0) {
+      rows[i].style.background = "#f2f2f2";
+    } else {
+      rows[i].style.background = "white";
+    }
+  }
+});
 btnSubmit.addEventListener("click", () => {
   for (let i = 0; i < inputs.length - 1; i++) {
     inputs[i].value = "";
   }
 });
+
 
 const checkValidation = function (fullName, mobile, email) {
   if (checkname(fullName) && checkmobile(mobile) && checkemail(email)) {
@@ -61,7 +71,9 @@ function checkemail(email) {
   }
   return emailFlag;
 }
-nameColumn.addEventListener("click", function () {
+
+
+const sortTable = function(){
   var switching,
   i,
   x,
@@ -73,26 +85,13 @@ switching = true;
 dir = "asc";
 while (switching) {
   switching = false;
-
   for (i = 1; i < rows.length - 1; i++) {
     shouldSwitch = false;
     x = rows[i].getElementsByTagName("td")[0];
     y = rows[i + 1].getElementsByTagName("td")[0];
     if (dir == "asc") {
       if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-        shouldSwitch = true;
-        break;
-      }
-
-    }
-  }
-  for (i = 1; i < rows.length - 1; i++) {
-    shouldSwitch = false;
-    x = rows[i].getElementsByTagName("td")[0];
-    y = rows[i + 1].getElementsByTagName("td")[0];
-    if (dir == "asc") {
-      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-        shouldSwitch = true;
+       shouldSwitch = true;
         break;
       }
     } else if (dir == "desc") {
@@ -113,14 +112,31 @@ while (switching) {
     }
   }
 }
-});
-nameColumn.addEventListener("click", function () {
-  for (let i = 1; i < rows.length; i++) {
-    if (i % 2 != 0) {
-      rows[i].style.background = "#f2f2f2";
+}
+let sortCount = 1;
+const sortTable2 = () => {
+    if(sortCount == 1) {
+      sortCount = 0;
+      sortTableRows('asc');
     } else {
-      rows[i].style.background = "white";
+      sortCount = 1;
+      sortTableRows('dsc');
     }
-  }
-});
+}
+
+const sortTableRows = (sortOption) => {
+  console.log("Hello");
+  let rows1 = document.querySelectorAll('tbody tr');
+  rows1 = Array.from(rows1);
+  rows1.sort((a, b) => {
+    const a1 = a.querySelector('td')[0];
+    const b2 = b.querySelector('td')[0];
+    console.log(a);
+    console.log(b);
+    return sortOption === "asc" ? a1 <= b2 : a1 >= b2;
+  })
+
+
+}
+nameColumn.addEventListener("click", sortTable2);
 
