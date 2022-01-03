@@ -217,3 +217,17 @@
 //     }
 // console.log(bills, tips,totals);
 // console.log();
+
+
+//Clousers
+
+const secureBooking = function(){
+    let passengerCount = 0;
+
+    return function(){
+        passengerCount++;
+        console.log(passengerCount);
+    }
+}
+
+const booker = secureBooking();
